@@ -12,7 +12,6 @@ public class TestController {
     @GetMapping()
     public String getProduct() {
 
-
         return "Hello";
 
     }
