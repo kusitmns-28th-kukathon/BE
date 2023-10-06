@@ -42,9 +42,13 @@ jobs:
 
       - name: Set .yml for main
         run: |
+          
           # main 설정 파일 디렉토리로 이동
-          touch ./src/main/resources/application.yml
-          echo "${{ secrets.MAIN_YML }}" > ./src/main/resources/application.yml
+          mkdir ./src/main/resources
+          cd ./src/main/resources
+          touch ./application.yml
+          
+          echo "${{ secrets.MAIN_YML }}" > ./application.yml
         shell: bash
 
 
