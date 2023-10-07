@@ -55,6 +55,7 @@ public class DiaryService {
 
             diary = Diary.builder()
                     .writer(user)
+                    .good(0)
                     .build();
             Diary userDiary = diaryRepository.save(diary);
 

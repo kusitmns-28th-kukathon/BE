@@ -27,8 +27,13 @@ public class Diary {
     @Column(name = "diary_id")
     private Long id;
 
+    @Column(name = "goods")
+    private int good;
+
     @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
     private List<DiaryDetail> contents = new ArrayList<>();
+
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
