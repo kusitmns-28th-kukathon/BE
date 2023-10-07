@@ -2,11 +2,15 @@ package kukathon.server.kukathon28be.entity;
 
 
 import kukathon.server.kukathon28be.config.auditing.BaseTimeEntity;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
 @Table(name = "tb_add_friend")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class AddFriend extends BaseTimeEntity {
 
     @Id
@@ -23,5 +27,12 @@ public class AddFriend extends BaseTimeEntity {
     private User to;
 
     private boolean agree;
+
+    @Builder
+    public AddFriend(User from, User to, boolean agree) {
+        this.from = from;
+        this.to = to;
+        this.agree = agree;
+    }
 
 }

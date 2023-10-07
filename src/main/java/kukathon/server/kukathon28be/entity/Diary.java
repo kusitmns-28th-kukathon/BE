@@ -2,6 +2,7 @@ package kukathon.server.kukathon28be.entity;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "tb_diary")
+@EntityListeners(AuditingEntityListener.class)
 public class Diary {
 
     @Id
@@ -24,7 +26,7 @@ public class Diary {
     @JoinColumn(name = "user_id")
     private User writer;
 
-    @CreatedDate
+
     private LocalDate createDate;
 
     @LastModifiedDate
