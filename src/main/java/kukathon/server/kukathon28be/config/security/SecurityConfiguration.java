@@ -29,6 +29,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/friends/request",
                         "/friend/received-request",
                         "/friend/sent-request"
+                        "/api/user/diary/main",
+                        "/send-alarm"
                 ).authenticated()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),

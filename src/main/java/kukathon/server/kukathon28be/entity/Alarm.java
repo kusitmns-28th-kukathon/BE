@@ -1,9 +1,18 @@
 package kukathon.server.kukathon28be.entity;
 
 import kukathon.server.kukathon28be.config.auditing.BaseTimeEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_alarm")
 public class Alarm extends BaseTimeEntity {

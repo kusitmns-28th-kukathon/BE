@@ -52,15 +52,15 @@ public class DiaryController {
         return diaryRecordResponseDto;
     }
 
-//    @GetMapping(value = "/main")
-//    public MainResponseDto mainData(
-//            @AuthenticationPrincipal CustomUser customUser)  {
-//
-//        MainResponseDto mainResponseDto = diaryService.mainData(customUser.getUserId());
-//
-//        LOGGER.info("메인 데이터 조회 완료");
-//
-//        return mainResponseDto;
-//    }
+    @GetMapping(value = "/main")
+    public MainResponseDto mainData(
+            @AuthenticationPrincipal CustomUser customUser)  {
+
+        MainResponseDto mainResponseDto = diaryService.mainData(customUser.getUserId());
+
+        LOGGER.info("메인 데이터 조회 완료");
+
+        return mainResponseDto;
+    }
 
 }

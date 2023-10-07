@@ -13,4 +13,6 @@ public interface DiaryDetailRepository extends JpaRepository<DiaryDetail, Long> 
     List<DiaryDetail> findByDiary(Diary diary);
 
 
+
+
 }
