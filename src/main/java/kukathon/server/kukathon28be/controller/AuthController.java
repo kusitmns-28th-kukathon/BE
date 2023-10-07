@@ -30,6 +30,8 @@ public class AuthController {
 
         String accessToken = jwtTokenProvider.resolveAccessToken(request);
 
+        LOGGER.info(accessToken);
+
         TokenResponseDto reissueTokenResponseDto = authService.kakaoLogin(accessToken);
 
         LOGGER.info("카카오 로그인 완료");
