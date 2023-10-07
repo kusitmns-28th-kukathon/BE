@@ -20,4 +20,8 @@ public class FindSentRequestDto {
         return new FindSentRequestDto(request.getTo().getId(), request.getTo().getNickname(), request.isAgree());
     }
 
+    public static FindSentRequestDto from(AddFriend request) {
+        return new FindSentRequestDto(request.getFrom().getId(), request.getFrom().getNickname(), request.isAgree());
+    }
+
 }

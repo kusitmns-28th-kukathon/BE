@@ -41,10 +41,10 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "writer", cascade = CascadeType.REMOVE)
     private List<Diary> diaries = new ArrayList<>();
 
-    @OneToMany(mappedBy = "to")
+    @OneToMany(mappedBy = "from")
     private List<AddFriend> sendRequests = new ArrayList<>();
 
-    @OneToMany(mappedBy = "from")
+    @OneToMany(mappedBy = "to")
     private List<AddFriend> receivedRequests = new ArrayList<>();
 
     @OneToMany(mappedBy = "to")
