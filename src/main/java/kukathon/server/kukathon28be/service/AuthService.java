@@ -1,20 +1,20 @@
 package kukathon.server.kukathon28be.service;
 
 import kukathon.server.kukathon28be.config.security.JwtTokenProvider;
-import kukathon.server.kukathon28be.dto.KakaoUserResponse;
-import kukathon.server.kukathon28be.dto.TokenResponseDto;
+import kukathon.server.kukathon28be.dto.response.KakaoUserResponse;
+import kukathon.server.kukathon28be.dto.response.TokenResponseDto;
 import kukathon.server.kukathon28be.entity.User;
 import kukathon.server.kukathon28be.repository.UserRepository;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.Optional;
-import java.util.logging.Logger;
+
 
 
 @Service
@@ -30,6 +30,7 @@ public class AuthService{
     private final WebClient webClient;
 
 
+    private final Logger LOGGER = LoggerFactory.getLogger(AuthService.class);
     @Autowired
     public AuthService(WebClient webClient, UserRepository userRepository, JwtTokenProvider jwtTokenProvider, RedisTemplate<String, String> redisTemplate) {
         this.webClient = webClient;
@@ -50,25 +51,37 @@ public class AuthService{
         Mono<KakaoUserResponse> userInfoMono = getUserInfo(accessToken);
         KakaoUserResponse userInfo = userInfoMono.block();
 
-        Optional<User> userData = userRepository.findByEmail(String.valueOf(userInfo.getId()));
+//        LOGGER.info(String.valueOf(userInfo.getAccount_email()));
+//        LOGGER.info(String.valueOf(userInfo.getProfile_nickname()));
+//        LOGGER.info(String.valueOf(userInfo.getProfile_image()));
+
+        LOGGER.info(String.valueOf(userInfo.getKakao_account().getEmail()));
+        LOGGER.info(String.valueOf(userInfo.getKakao_account().getProfile().getProfileImageUrl()));
+        LOGGER.info(String.valueOf(userInfo.getKakao_account().getProfile().getNickname()));
+
+        Optional<User> userData = userRepository.findByNum(String.valueOf(userInfo.getId()));
 
         if(userData.isEmpty()){
             user = User.builder()
-                    .email(String.valueOf(userInfo.getId()))
+                    .num(String.valueOf(userInfo.getId()))
                     .userRole("USER")
+                    .email(userInfo.getKakao_account().getEmail())
+                    .nickname(userInfo.getKakao_account().getProfile().getNickname())
+                    .userProfile(userInfo.getKakao_account().getProfile().getProfileImageUrl())
                     .build();
 
             userRepository.save(user);
         }
 
-        Optional<User> userLoginData = userRepository.findByEmail(String.valueOf(userInfo.getId()));
+        Optional<User> userLoginData = userRepository.findByNum(String.valueOf(userInfo.getId()));
 
-        String refreshToken = jwtTokenProvider.createRereshToken();
+
+        String refreshToken = "Bearer " +jwtTokenProvider.createRereshToken();
 
         TokenResponseDto tokenResponseDto = TokenResponseDto.builder()
                 .message("OK")
                 .code(200)
-                .accessToken(jwtTokenProvider.createAccessToken(
+                .accessToken("Bearer " +jwtTokenProvider.createAccessToken(
                         userLoginData.get().getId(),
                         String.valueOf(userLoginData.get().getUserRole())))
                 .refreshToken(refreshToken)

@@ -14,6 +14,9 @@ import java.util.stream.Stream;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 
+
+    Optional<User> findByNum(String userId);
+
     Optional<User> findByEmail(String userId);
 
     @Query(nativeQuery = true,
