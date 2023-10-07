@@ -1,4 +1,4 @@
-package kukathon.server.kukathon28be.dto;
+package kukathon.server.kukathon28be.dto.response;
 
 import lombok.*;
 

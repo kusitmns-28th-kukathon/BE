@@ -1,10 +1,18 @@
 package kukathon.server.kukathon28be.entity;
 
 import kukathon.server.kukathon28be.config.auditing.BaseTimeEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
+@Getter
 @Table(name = "tb_diary_detail")
 public class DiaryDetail extends BaseTimeEntity {
 

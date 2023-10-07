@@ -1,12 +1,11 @@
 package kukathon.server.kukathon28be.controller;
 
 import kukathon.server.kukathon28be.config.security.JwtTokenProvider;
-import kukathon.server.kukathon28be.dto.TokenResponseDto;
+import kukathon.server.kukathon28be.dto.response.TokenResponseDto;
 import kukathon.server.kukathon28be.service.AuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,8 +28,6 @@ public class AuthController {
     public TokenResponseDto kakaoLogin(HttpServletRequest request)  {
 
         String accessToken = jwtTokenProvider.resolveAccessToken(request);
-
-        LOGGER.info(accessToken);
 
         TokenResponseDto reissueTokenResponseDto = authService.kakaoLogin(accessToken);
 

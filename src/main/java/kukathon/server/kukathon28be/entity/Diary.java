@@ -1,5 +1,10 @@
 package kukathon.server.kukathon28be.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -8,6 +13,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "tb_diary")
 public class Diary {
@@ -24,10 +34,11 @@ public class Diary {
     @JoinColumn(name = "user_id")
     private User writer;
 
-    @CreatedDate
+    @CreationTimestamp
     private LocalDate createDate;
 
-    @LastModifiedDate
+    @UpdateTimestamp
     private LocalDate modifiedDate;
+
 
 }

@@ -24,8 +24,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(
-                        "/api"
-
+                        "/api/user/diary/add-diary",
+                        "/api/user/diary/diary-record/{date}"
                 ).authenticated()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
