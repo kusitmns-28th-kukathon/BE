@@ -4,6 +4,7 @@ package kukathon.server.kukathon28be.service;
 import kukathon.server.kukathon28be.config.security.JwtTokenProvider;
 import kukathon.server.kukathon28be.dto.request.AddDiaryRequest;
 import kukathon.server.kukathon28be.dto.response.DiaryRecordResponseDto;
+import kukathon.server.kukathon28be.dto.response.MainResponseDto;
 import kukathon.server.kukathon28be.dto.response.ResponseDto;
 import kukathon.server.kukathon28be.entity.Diary;
 import kukathon.server.kukathon28be.entity.DiaryDetail;
@@ -111,4 +112,14 @@ public class DiaryService {
         return diaryRecordResponseDto;
 
     }
+
+//    public MainResponseDto mainData(Long userId){
+//
+//        User user = User.builder().id(userId).build();
+//
+//      //  MainResponseDto mainResponseDto
+//
+////      return
+//
+//    }
 }
