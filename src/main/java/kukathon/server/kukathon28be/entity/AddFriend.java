@@ -35,4 +35,8 @@ public class AddFriend extends BaseTimeEntity {
         this.agree = agree;
     }
 
+    public void accept() {
+        this.agree = true;
+    }
+
 }
