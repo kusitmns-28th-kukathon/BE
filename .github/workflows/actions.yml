@@ -74,6 +74,7 @@ jobs:
           script: |
             sudo -i
             
+            
             docker stop Gteam
             docker rm Gteam
             docker rmi leeseungryeol/gteam:1.0
