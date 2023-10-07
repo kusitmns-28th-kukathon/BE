@@ -24,19 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(
-                        "/api/home/new-child",
-                        "/api/child-medicine/enroll-medicine",
-                        "/api/adhd/test/result",
-                        "/api/adhd/test",
-                        "/api/child-medicine/medicine-manage",
-                        "/api/alarm/add-page",
-                        "/api/alarm/add",
-                        "/api/child-medicine/dose-record",
-                        "/api/users/details",
-                        "/api/users/{child-id}/details",
-                        "/api/alarm/dose/",
-                        "/api/users/alarms",
-                        "/api/users/family"
+
                 ).authenticated()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
@@ -49,7 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .ignoring()
                 .antMatchers(
                         "/api/user/auth/kakao-login",
-                        "/api/user/auth/logout"
+                        "/"
                 );
     }
 }
