@@ -2,11 +2,11 @@ package kukathon.server.kukathon28be.controller;
 
 
 import kukathon.server.kukathon28be.config.security.CustomUser;
+import kukathon.server.kukathon28be.dto.FindDiaryResponse;
 import kukathon.server.kukathon28be.dto.request.AddDiaryRequest;
 import kukathon.server.kukathon28be.dto.response.DiaryRecordResponseDto;
 import kukathon.server.kukathon28be.dto.response.MainResponseDto;
 import kukathon.server.kukathon28be.dto.response.ResponseDto;
-import kukathon.server.kukathon28be.dto.response.TokenResponseDto;
 import kukathon.server.kukathon28be.service.DiaryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,6 +71,11 @@ public class DiaryController {
         LOGGER.info("메인 데이터 조회 완료");
 
         return mainResponseDto;
+    }
+
+    @GetMapping
+    public FindDiaryResponse findAll(@AuthenticationPrincipal CustomUser customUser) {
+        return new FindDiaryResponse(diaryService.findAll(customUser.getUserId()));
     }
 
 }

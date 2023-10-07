@@ -2,6 +2,7 @@ package kukathon.server.kukathon28be.service;
 
 
 import kukathon.server.kukathon28be.config.security.JwtTokenProvider;
+import kukathon.server.kukathon28be.dto.DiaryDto;
 import kukathon.server.kukathon28be.dto.request.AddDiaryRequest;
 import kukathon.server.kukathon28be.dto.response.DiaryRecordResponseDto;
 import kukathon.server.kukathon28be.dto.response.MainResponseDto;
@@ -16,12 +17,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,10 +34,12 @@ public class DiaryService {
 
     public DiaryDetailRepository diaryDetailRepository;
 
+    public UserRepository userRepository;
+
     private final Logger LOGGER = LoggerFactory.getLogger(DiaryService.class);
     @Autowired
-    public DiaryService(DiaryRepository diaryRepository, DiaryDetailRepository diaryDetailRepository) {
-
+    public DiaryService(DiaryRepository diaryRepository, DiaryDetailRepository diaryDetailRepository, UserRepository userRepository) {
+        this.userRepository = userRepository;
         this.diaryRepository = diaryRepository;
         this.diaryDetailRepository = diaryDetailRepository;
     }
@@ -193,5 +196,14 @@ public class DiaryService {
         mainResponseDto.setData(userDataLists);
 
         return mainResponseDto;
+    }
+
+    @Transactional
+    public List<DiaryDto> findAll(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException(""));
+        List<Diary> diaries = diaryRepository.findByWriter(user);
+        return diaries.stream()
+                .map(DiaryDto::of)
+                .collect(Collectors.toList());
     }
 }
