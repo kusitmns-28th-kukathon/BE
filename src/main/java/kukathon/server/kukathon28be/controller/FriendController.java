@@ -4,7 +4,9 @@ import kukathon.server.kukathon28be.config.security.CustomUser;
 import kukathon.server.kukathon28be.dto.AcceptFriendRequest;
 import kukathon.server.kukathon28be.dto.CreateFriendRequest;
 import kukathon.server.kukathon28be.dto.CreateFriendResponse;
+import kukathon.server.kukathon28be.dto.FindSentResponse;
 import kukathon.server.kukathon28be.service.FriendService;
+import kukathon.server.kukathon28be.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class FriendController {
 
     private final FriendService friendService;
+    private final UserService userService;
 
     @PostMapping("/friends/request")
     @ResponseStatus(code = HttpStatus.CREATED)
@@ -27,6 +30,11 @@ public class FriendController {
     @ResponseStatus(code = HttpStatus.OK)
     public void acceptRequest(@AuthenticationPrincipal CustomUser user, @RequestBody AcceptFriendRequest request) {
         friendService.acceptRequest(user.getUserId(), request);
+    }
+
+    @GetMapping("/friend/sent-request/")
+    public FindSentResponse findSentRequest(@AuthenticationPrincipal CustomUser user) {
+        return new FindSentResponse(friendService.findSentRequest(user.getUserId()));
     }
 
 }
