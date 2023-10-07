@@ -25,7 +25,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/api/user/diary/add-diary",
-                        "/api/user/diary/diary-record/{date}"
+                        "/api/user/diary/diary-record/{date}",
+                        "/friends/request",
+                        "/friend/received-request",
+                        "/friend/sent-request"
                 ).authenticated()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
@@ -37,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         webSecurity
                 .ignoring()
                 .antMatchers(
-                        "/friends/**",
+                        "/friends",
                         "/api/user/auth/kakao-login",
                         "/"
                 );
