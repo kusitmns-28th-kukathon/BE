@@ -39,4 +39,12 @@ public class AddFriend extends BaseTimeEntity {
         this.agree = true;
     }
 
+    public void setFrom(User user) {
+        this.from = user;
+    }
+
+    public void setTo(User user) {
+        this.to = user;
+    }
+
 }

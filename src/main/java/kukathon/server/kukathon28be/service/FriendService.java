@@ -1,6 +1,7 @@
 package kukathon.server.kukathon28be.service;
 
 import kukathon.server.kukathon28be.dto.AcceptFriendRequest;
+import kukathon.server.kukathon28be.dto.FindSentRequestDto;
 import kukathon.server.kukathon28be.entity.AddFriend;
 import kukathon.server.kukathon28be.entity.User;
 import kukathon.server.kukathon28be.repository.FriendRepository;
@@ -8,6 +9,9 @@ import kukathon.server.kukathon28be.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -28,6 +32,8 @@ public class FriendService {
                 .build();
 
         friendRepository.save(request);
+        fromUser.addSendReqeust(request);
+        toUser.addReceivedRequest(request);
 
         return request.getId();
     }
@@ -45,6 +51,13 @@ public class FriendService {
         }
 
         pendingRequest.accept();
+    }
+
+    public List<FindSentRequestDto> findSentRequest(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException(""));
+        return user.getSendRequests().stream()
+                .map(FindSentRequestDto::of)
+                .collect(Collectors.toList());
     }
 
 }

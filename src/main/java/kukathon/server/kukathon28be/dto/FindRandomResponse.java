@@ -8,6 +8,8 @@ import java.util.List;
 public class FindRandomResponse {
 
     private List<FindRandomUserDto> users;
+    private int page;
+    private boolean hasNextPage;
 
     public FindRandomResponse(List<FindRandomUserDto> users) {
         this.users = users;
