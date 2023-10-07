@@ -32,12 +32,14 @@ public class FriendController {
         friendService.acceptRequest(user.getUserId(), request);
     }
 
-    @GetMapping("/friend/sent-request/")
+    @GetMapping("/friend/sent-request")
+    @ResponseStatus(code = HttpStatus.OK)
     public FindSentResponse findSentRequest(@AuthenticationPrincipal CustomUser user) {
         return new FindSentResponse(friendService.findSentRequest(user.getUserId()));
     }
 
     @GetMapping("/friend/received-request")
+    @ResponseStatus(code = HttpStatus.OK)
     public FindSentResponse findReceivedRequest(@AuthenticationPrincipal CustomUser user) {
         return new FindSentResponse(friendService.findReceivedRequest(user.getUserId()));
     }
