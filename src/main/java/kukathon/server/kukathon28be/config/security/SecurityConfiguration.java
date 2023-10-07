@@ -28,7 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/api/user/diary/diary-record/{date}",
                         "/friends/request",
                         "/friend/received-request",
-                        "/friend/sent-request"
+                        "/friend/sent-request",
                         "/api/user/diary/main",
                         "/send-alarm"
                 ).authenticated()
