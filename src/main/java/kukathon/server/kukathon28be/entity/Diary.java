@@ -2,6 +2,7 @@ package kukathon.server.kukathon28be.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -20,6 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
+@Getter
 @Table(name = "tb_diary")
 @EntityListeners(AuditingEntityListener.class)
 public class Diary {
