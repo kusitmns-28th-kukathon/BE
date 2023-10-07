@@ -21,15 +21,31 @@ public class User extends BaseTimeEntity {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "password")
-    private String password;
-
     @Column(name = "email")
     private String email;
 
     @Column(name = "user_role")
     private String userRole;
 
+    @Column(name = "nickname")
+    private String nickname;
 
+    @Column(name = "keys")
+    private String key;
+
+    @Column(name = "user_profile")
+    private String userProfile;
+
+    @OneToMany(mappedBy = "writer")
+    private List<Diary> diaries = new ArrayList<>();
+
+    @OneToMany(mappedBy = "to")
+    private List<AddFriend> sendRequests = new ArrayList<>();
+
+    @OneToMany(mappedBy = "from")
+    private List<AddFriend> receivedRequests = new ArrayList<>();
+
+    @OneToMany(mappedBy = "to")
+    private List<Alarm> alarms = new ArrayList<>();
 
 }
