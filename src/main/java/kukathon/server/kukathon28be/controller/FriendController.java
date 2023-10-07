@@ -23,7 +23,7 @@ public class FriendController {
         return new CreateFriendResponse(requestId);
     }
 
-    @PutMapping("/friend/request")
+    @PutMapping("/friends/request")
     @ResponseStatus(code = HttpStatus.OK)
     public void acceptRequest(@AuthenticationPrincipal CustomUser user, @RequestBody AcceptFriendRequest request) {
         friendService.acceptRequest(user.getUserId(), request);
