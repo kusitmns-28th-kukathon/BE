@@ -60,4 +60,10 @@ public class FriendService {
                 .collect(Collectors.toList());
     }
 
+    public List<FindSentRequestDto> findReceivedRequest(Long userId) {
+        User toUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("존재하지 않는 엔티티"));
+        return toUser.getReceivedRequests().stream()
+                .map(FindSentRequestDto::of)
+                .collect(Collectors.toList());
+    }
 }
