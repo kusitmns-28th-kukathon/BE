@@ -152,4 +152,46 @@ public class DiaryService {
 
         return mainResponseDto;
     }
+
+
+    public MainResponseDto friendMainData() {
+
+        Long userId = 27L;
+
+        User user = User.builder().id(userId).build();
+
+
+
+        MainResponseDto mainResponseDto = new MainResponseDto();
+        mainResponseDto.setCode(200);
+        mainResponseDto.setMessage("OK");
+
+        List<Diary> diaryList = diaryRepository.findByWriter(user);
+
+        List<List<MainResponseDto.UserData>> userDataLists = new ArrayList<>();
+        List<MainResponseDto.UserData> userDataList = new ArrayList<>();
+
+        for (int i = 0; i < diaryList.size(); i++) {
+            List<DiaryDetail> diaryDetailList = diaryDetailRepository.findByDiary(diaryList.get(i));
+            MainResponseDto.UserData userData = new MainResponseDto.UserData();
+
+            List<String> contentList = diaryDetailList.stream()
+                    .map(DiaryDetail::getContent)
+                    .collect(Collectors.toList());
+
+            userData.setGood(diaryList.get(i).getGood());
+            userData.setContents(contentList);
+
+            userDataList.add(userData);
+
+            if (userDataList.size() == 7 || i == diaryList.size() - 1) {
+                userDataLists.add(userDataList);
+                userDataList = new ArrayList<>();
+            }
+        }
+
+        mainResponseDto.setData(userDataLists);
+
+        return mainResponseDto;
+    }
 }

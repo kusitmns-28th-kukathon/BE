@@ -44,7 +44,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/friends",
                         "/api/user/auth/kakao-login",
-                        "/"
+                        "/",
+                        "/api/user/diary/friend-main"
                 );
     }
 }

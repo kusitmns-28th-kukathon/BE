@@ -52,6 +52,16 @@ public class DiaryController {
         return diaryRecordResponseDto;
     }
 
+    @GetMapping(value = "/friend-main")
+    public MainResponseDto friendMainData()  {
+
+        MainResponseDto mainResponseDto = diaryService.friendMainData();
+
+        LOGGER.info("친구 메인 데이터 조회 완료");
+
+        return mainResponseDto;
+    }
+
     @GetMapping(value = "/main")
     public MainResponseDto mainData(
             @AuthenticationPrincipal CustomUser customUser)  {
