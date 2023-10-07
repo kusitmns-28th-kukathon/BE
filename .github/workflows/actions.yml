@@ -82,7 +82,6 @@ jobs:
             docker rm redis
             docker rmi redis
             docker pull leeseungryeol/gteam:1.0
-            
             cd /
             docker-compose down
             docker-compose up -d
