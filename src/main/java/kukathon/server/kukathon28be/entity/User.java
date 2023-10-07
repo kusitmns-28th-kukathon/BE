@@ -30,8 +30,8 @@ public class User extends BaseTimeEntity {
     @Column(name = "nickname")
     private String nickname;
 
-    @Column(name = "keys")
-    private String key;
+    @Column(name = "nums")
+    private String num;
 
     @Column(name = "user_profile")
     private String userProfile;
