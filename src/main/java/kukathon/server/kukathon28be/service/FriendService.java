@@ -17,9 +17,9 @@ public class FriendService {
     private final FriendRepository friendRepository;
     private final UserRepository userRepository;
     
-    public Long createRequest(String username, Long userId) {
-        User fromUser = userRepository.findByEmail(username).orElseThrow(() -> new RuntimeException("존재하지 않는 엔티티"));
-        User toUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("존재하지 않는 엔티티"));
+    public Long createRequest(Long fromUserID, Long toUserId) {
+        User fromUser = userRepository.findById(fromUserID).orElseThrow(() -> new RuntimeException("존재하지 않는 엔티티"));
+        User toUser = userRepository.findById(toUserId).orElseThrow(() -> new RuntimeException("존재하지 않는 엔티티"));
 
         AddFriend request = AddFriend.builder()
                 .from(fromUser)
@@ -32,8 +32,8 @@ public class FriendService {
         return request.getId();
     }
 
-    public void acceptRequest(String username, AcceptFriendRequest request) throws RuntimeException {
-        User toUser = userRepository.findByEmail(username).orElseThrow(() -> new RuntimeException("존재하지 않는 엔티티"));
+    public void acceptRequest(Long toUserId, AcceptFriendRequest request) throws RuntimeException {
+        User toUser = userRepository.findById(toUserId).orElseThrow(() -> new RuntimeException("존재하지 않는 엔티티"));
         AddFriend pendingRequest = friendRepository.findById(request.getRequestId()).orElseThrow(() -> new RuntimeException("존재하지 않는 엔티티"));
 
         if (pendingRequest.isAgree()) {
