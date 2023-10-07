@@ -5,12 +5,14 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class CreateFriendRequest {
+public class FindSentResponse {
 
-    private Long userId;
+    List<FindSentRequestDto> requests;
 
 }

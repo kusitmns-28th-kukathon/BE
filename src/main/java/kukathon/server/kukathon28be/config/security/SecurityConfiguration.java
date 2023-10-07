@@ -39,6 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         webSecurity
                 .ignoring()
                 .antMatchers(
+                        "/friends/**",
                         "/api/user/auth/kakao-login",
                         "/"
                 );

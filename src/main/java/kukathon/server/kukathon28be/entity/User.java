@@ -50,4 +50,14 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "to")
     private List<Alarm> alarms = new ArrayList<>();
 
+    public void addSendReqeust(AddFriend request) {
+        request.setFrom(this);
+        this.sendRequests.add(request);
+    }
+
+    public void addReceivedRequest(AddFriend request) {
+        request.setTo(this);
+        this.receivedRequests.add(request);
+    }
+
 }
