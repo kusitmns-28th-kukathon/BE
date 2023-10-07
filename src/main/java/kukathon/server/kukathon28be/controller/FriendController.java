@@ -37,4 +37,9 @@ public class FriendController {
         return new FindSentResponse(friendService.findSentRequest(user.getUserId()));
     }
 
+    @GetMapping("/friend/received-request")
+    public FindSentResponse findReceivedRequest(@AuthenticationPrincipal CustomUser user) {
+        return new FindSentResponse(friendService.findReceivedRequest(user.getUserId()));
+    }
+
 }
