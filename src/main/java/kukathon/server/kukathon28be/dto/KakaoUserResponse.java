@@ -9,4 +9,7 @@ public class KakaoUserResponse {
 
     private long id;
     private String nickname;
+    private String profileUrl;
+    private String email;
+
 }

@@ -5,6 +5,7 @@ import kukathon.server.kukathon28be.dto.KakaoUserResponse;
 import kukathon.server.kukathon28be.dto.TokenResponseDto;
 import kukathon.server.kukathon28be.entity.User;
 import kukathon.server.kukathon28be.repository.UserRepository;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -14,7 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.Optional;
-import java.util.logging.Logger;
+
 
 
 @Service
@@ -30,6 +31,7 @@ public class AuthService{
     private final WebClient webClient;
 
 
+    private final Logger LOGGER = LoggerFactory.getLogger(AuthService.class);
     @Autowired
     public AuthService(WebClient webClient, UserRepository userRepository, JwtTokenProvider jwtTokenProvider, RedisTemplate<String, String> redisTemplate) {
         this.webClient = webClient;
@@ -50,18 +52,27 @@ public class AuthService{
         Mono<KakaoUserResponse> userInfoMono = getUserInfo(accessToken);
         KakaoUserResponse userInfo = userInfoMono.block();
 
-        Optional<User> userData = userRepository.findByEmail(String.valueOf(userInfo.getId()));
+        LOGGER.info(String.valueOf(userInfo.getProfileUrl()));
+        LOGGER.info(String.valueOf(userInfo.getNickname()));
+        LOGGER.info(String.valueOf(userInfo.getEmail()));
+
+        Optional<User> userData = userRepository.findByNum(String.valueOf(userInfo.getId()));
 
         if(userData.isEmpty()){
             user = User.builder()
-                    .email(String.valueOf(userInfo.getId()))
+                    .num(String.valueOf(userInfo.getId()))
                     .userRole("USER")
+                    .email(userInfo.getEmail())
+                    .nickname(userInfo.getNickname())
+                    .userProfile(userInfo.getProfileUrl())
                     .build();
 
             userRepository.save(user);
         }
 
-        Optional<User> userLoginData = userRepository.findByEmail(String.valueOf(userInfo.getId()));
+        Optional<User> userLoginData = userRepository.findByNum(String.valueOf(userInfo.getId()));
+
+        LOGGER.info(String.valueOf(userLoginData.get().getId()));
 
         String refreshToken = jwtTokenProvider.createRereshToken();
 
