@@ -33,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/api/user/diary"
                 ).authenticated()
                 .antMatchers(
-                        "/",
+
                         "/friends",
                         "/api/user/auth/kakao-login",
                         "/api/user/diary/friend-main"
@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         webSecurity
                 .ignoring()
                 .antMatchers(
-
+                        "/"
                 );
     }
 }
