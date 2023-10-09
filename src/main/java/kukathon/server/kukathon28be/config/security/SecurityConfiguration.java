@@ -15,7 +15,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-
         httpSecurity
                 .httpBasic().disable()
                 .csrf().disable()
@@ -33,20 +32,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/send-alarm",
                         "/api/user/diary"
                 ).authenticated()
+                .antMatchers(
+                        "/",
+                        "/friends",
+                        "/api/user/auth/kakao-login",
+                        "/api/user/diary/friend-main"
+                ).permitAll()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class);
     }
+
 
     @Override
     public void configure(WebSecurity webSecurity) {
         webSecurity
                 .ignoring()
                 .antMatchers(
-                        "/friends",
-                        "/api/user/auth/kakao-login",
-                        "/",
-                        "/api/user/diary/friend-main"
+
                 );
     }
 }

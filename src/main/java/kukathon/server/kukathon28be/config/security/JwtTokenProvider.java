@@ -27,7 +27,6 @@ public class JwtTokenProvider {
 
     private final long accessTokenTime = 30L * 24L * 60 * 60 * 1000; // 1달 토큰 유효
 
-
     private final long refreshTokenTime = 1L * 60 * 1000 * 2; // 1달 토큰 유효
 
     @PostConstruct
@@ -36,7 +35,6 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes(StandardCharsets.UTF_8));
         LOGGER.info("[init] JwtTokenProvider 내 secretKey 초기화 완료");
     }
-
 
     public String createAccessToken(Long userId, String roles) {            // 토큰 생성
 
@@ -69,7 +67,6 @@ public class JwtTokenProvider {
         return token;
     }
 
-
     public UsernamePasswordAuthenticationToken getAuthentication(String token) {
         LOGGER.info("[getAuthentication] 토큰 인증 정보 조회 시작");
 
@@ -80,10 +77,8 @@ public class JwtTokenProvider {
                 .userId(userId)
                 .build();
 
-
         return new UsernamePasswordAuthenticationToken(customUser, "", customUser.getAuthorities());
     }
-
 
     public Long getUserId(String token) {                  // 회원 정보 추출
 
@@ -95,13 +90,7 @@ public class JwtTokenProvider {
         return userId;
     }
 
-
-    //    public String resolveAccessToken(HttpServletRequest request) {              // 헤더에서 토큰 가져오기
-//        LOGGER.info("[resolveToken] HTTP 헤더에서 Token 값 추출");
-//
-//        return request.getHeader("access").substring(7);
-//    }
-    public String resolveAccessToken(HttpServletRequest request) {
+    public String resolveToken(HttpServletRequest request) {
         LOGGER.info("[resolveToken] HTTP 헤더에서 Token 값 추출");
 
         String tokenHeader = request.getHeader("access");
@@ -113,14 +102,6 @@ public class JwtTokenProvider {
             throw new IllegalArgumentException("Invalid access token header");
         }
     }
-
-
-    public String resolveRefreshToken(HttpServletRequest request) {              // 헤더에서 토큰 가져오기
-        LOGGER.info("[resolveToken] HTTP 헤더에서 Token 값 추출");
-
-        return request.getHeader("refresh").substring(7);
-    }
-
 
     public boolean validateToken(String token) {                         // 토큰 유효성 확인
         LOGGER.info("[validateToken] 토큰 유효 체크 시작");

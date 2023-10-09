@@ -27,7 +27,7 @@ public class AuthController {
     @PostMapping(value = "/kakao-login")
     public TokenResponseDto kakaoLogin(HttpServletRequest request)  {
 
-        String accessToken = jwtTokenProvider.resolveAccessToken(request);
+        String accessToken = jwtTokenProvider.resolveToken(request);
 
         TokenResponseDto reissueTokenResponseDto = authService.kakaoLogin(accessToken);
 

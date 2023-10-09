@@ -28,8 +28,6 @@ import java.util.stream.Collectors;
 @Service
 public class DiaryService {
 
-    public JwtTokenProvider jwtTokenProvider;
-
     public DiaryRepository diaryRepository;
 
     public DiaryDetailRepository diaryDetailRepository;
@@ -57,8 +55,6 @@ public class DiaryService {
 
         if(diary == null){         // 값이 없으면
 
-            LOGGER.info("1");
-
             diary = Diary.builder()
                     .writer(user)
                     .good(0)
@@ -73,10 +69,7 @@ public class DiaryService {
             diaryDetailRepository.save(diaryDetail);
         }else {
 
-            LOGGER.info("2");
-
             // 값이 있으면
-
             DiaryDetail diaryDetail = DiaryDetail.builder()
                     .diary(diary)
                     .content(addDiaryRequest.getContents())
@@ -162,8 +155,6 @@ public class DiaryService {
         Long userId = 27L;
 
         User user = User.builder().id(userId).build();
-
-
 
         MainResponseDto mainResponseDto = new MainResponseDto();
         mainResponseDto.setCode(200);

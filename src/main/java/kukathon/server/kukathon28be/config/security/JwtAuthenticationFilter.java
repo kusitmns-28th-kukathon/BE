@@ -40,7 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse servletResponse,
                                     FilterChain filterChain) {
         try {
-            String token = jwtTokenProvider.resolveAccessToken(servletRequest);
+            String token = jwtTokenProvider.resolveToken(servletRequest);
             if (token != null) {
 
                 jwtTokenProvider.validateToken(token);
