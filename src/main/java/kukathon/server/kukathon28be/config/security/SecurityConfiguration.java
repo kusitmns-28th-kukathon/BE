@@ -32,12 +32,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/send-alarm",
                         "/api/user/diary"
                 ).authenticated()
-                .antMatchers(
-
-                        "/friends",
-                        "/api/user/auth/kakao-login",
-                        "/api/user/diary/friend-main"
-                ).permitAll()
+//                .antMatchers(
+//
+//                        "/friends",
+//                        "/api/user/auth/kakao-login",
+//                        "/api/user/diary/friend-main"
+//                ).permitAll()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class);
@@ -49,7 +49,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         webSecurity
                 .ignoring()
                 .antMatchers(
-                        "/"
+                        "/",
+                        "/friends",
+                        "/api/user/auth/kakao-login",
+                        "/api/user/diary/friend-main"
                 );
     }
 }
